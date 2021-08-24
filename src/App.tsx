@@ -1,10 +1,14 @@
 import './css/main.css';
-function App() {
+
+import Header from './components/Header';
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-    </div>
+    <>
+      <Header />
+      <div className="container mx-auto"></div>
+    </>
   );
-}
+};
 
 export default App;

@@ -13,6 +13,7 @@ interface IdataUnit {
  * This component manages the returning the UI for the exchange rates from Euro for the past 7 days
  * */
 const HistoricalData = () => {
+  const ACCESS_KEY = 'd3b5401b496524bf3dc6143b8cc358b9';
   /**
    * This is a React hook that is used to store the data for the data related to the exchange rates for the past 7 days
    */
@@ -39,7 +40,7 @@ const HistoricalData = () => {
    */
   const searchHistoricalData = async (date: string) => {
     const response = await axios.get(
-      `http://api.exchangeratesapi.io/v1/${date}?access_key=d3b5401b496524bf3dc6143b8cc358b9&symbols=USD,AUD,CAD,PLN,MXN`
+      `http://api.exchangeratesapi.io/v1/${date}?access_key=${ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
     );
 
     //@ts-ignore

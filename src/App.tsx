@@ -6,9 +6,9 @@ import { useState, useEffect } from 'react';
 import ConversionHistory from './components/ConversionHistory';
 import HistoricalData from './components/HistoricalData';
 
+const ACCESS_KEY = 'd3b5401b496524bf3dc6143b8cc358b9';
 //the base url for the API call
-const BASE_URL =
-  'http://api.exchangeratesapi.io/v1/latest?access_key=d3b5401b496524bf3dc6143b8cc358b9';
+const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${ACCESS_KEY}`;
 
 /**
  *Component that nests all other components and passes the relative API data to child components

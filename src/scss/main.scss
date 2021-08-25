@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import './variables.scss';
+@import './mixins.scss';
 
 * {
   box-sizing: border-box;
@@ -23,11 +24,9 @@ html {
 }
 
 .conversions {
-  overflow-y: scroll;
-  max-height: 150px;
+  @include scrollCard();
 }
 
 .history {
-  max-height: 150px;
-  overflow-y: scroll;
+  @include scrollCard();
 }

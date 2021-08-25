@@ -14,9 +14,9 @@ html {
   background-size: cover; }
 
 .conversions {
-  overflow-y: scroll;
-  max-height: 150px; }
+  max-height: 200px;
+  overflow-y: scroll; }
 
 .history {
-  max-height: 150px;
+  max-height: 200px;
   overflow-y: scroll; }

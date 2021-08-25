@@ -25,8 +25,8 @@ const App = () => {
     }
   };
 
-  const [exchangeRates, setExchangeRates] = useState([]);
-  const [currencyListOptions, setCurrencyListOptions] = useState<any>([]);
+  const [exchangeRates, setExchangeRates] = useState<[]>([]);
+  const [currencyListOptions, setCurrencyListOptions] = useState<string[]>([]);
   const [conversionHistory, setConversionHistory] = useState([]);
 
   useEffect(() => {
@@ -38,14 +38,14 @@ const App = () => {
       <Header />
       <div className="container mx-auto justify-center flex flex-col md:flex-row">
         <Converter
+          //TS error fix used because I don't know how to type the key of an object yet...
+          //@ts-ignore
           rates={exchangeRates}
           options={currencyListOptions}
           setHistory={setConversionHistory}
         />
-
-        <HistoricalData />
-
         <ConversionHistory historyItems={conversionHistory} />
+        <HistoricalData />
       </div>
     </>
   );

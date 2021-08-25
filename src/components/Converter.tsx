@@ -1,40 +1,79 @@
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { BsArrowUpDown } from 'react-icons/bs';
 
-const Converter = ({ options, setHistory, rates }: any) => {
+type IRates = {
+  //error fix used to ignore the object key type (don't know that much TS)
+  //@ts-ignore
+  [x: string | number]: number;
+};
+
+interface IConverterProps {
+  options: string[];
+  setHistory: any;
+  rates: {
+    currency: IRates[];
+  };
+}
+
+/**
+ * Component used to display the UI for the component that manages currency conversions
+ * @param options props received from App.tsx that provides the individual currency symbols for the dropdown list
+ * @param setHistory hook from App.tsx that allows you to update the search history of currency exchanges from the user
+ *
+ * @param rates object from App.tsx that provides the currency key and the exchange rate for that currency
+ */
+const Converter = ({ options, setHistory, rates }: IConverterProps) => {
+  //state hook used to save the currency that the user want to convert from
   const [selectedFromCurrencyConversion, setSelectedFromCurrencyConversion] =
-    useState('EUR');
+    useState<string>('EUR');
+  //state hook used to save the currency that the user want to convert to
   const [selectedToCurrencyConversion, setSelectedToCurrencyConversion] =
-    useState('USD');
-  const [convertAmount, setConvertAmount] = useState<any>(1);
+    useState<string>('USD');
+  //state hook used to manage the number that a user wants to convert from
+  const [convertAmount, setConvertAmount] = useState<number | string | any>(1);
 
-  const handleInputChange = (e: any) => {
-    setConvertAmount(e.target.value);
+  //function that is used to set the number amount that the user wants to convert
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConvertAmount(e.currentTarget.value);
   };
-  const handleFromChange = (e: any) => {
-    setSelectedFromCurrencyConversion(e.target.value);
+  //function that is used to set the currency that a user wants to convert from
+  const handleFromChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    setSelectedFromCurrencyConversion(e.currentTarget.value);
   };
-  const handleToChange = (e: any) => {
-    setSelectedToCurrencyConversion(e.target.value);
+  //function that is used to set the currency that a user wants to convert to
+  const handleToChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    setSelectedToCurrencyConversion(e.currentTarget.value);
   };
 
-  const handleSubmit = (e: any) => {
+  //function used to handle the logic when a user submits the form by clicking the Calculate button
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     calculateConversion();
   };
 
+  //function that switches the convert from and to currencies
   const handleSwop = () => {
+    //temporily stores one of the currencies
     let temp_storage = selectedToCurrencyConversion;
+    //sets the To convert currency with the From currency
     setSelectedToCurrencyConversion(selectedFromCurrencyConversion);
+    //sets the From currency one with the temporary To currency we saved
     setSelectedFromCurrencyConversion(temp_storage);
   };
 
   const calculateConversion = () => {
+    // error fixes used to fix the key value of the exchange rate per currency
+    //@ts-ignore
     let exchangeFrom = rates[selectedFromCurrencyConversion];
+    //@ts-ignore
     let exchangeTo = rates[selectedToCurrencyConversion];
     let converted = ((exchangeTo / exchangeFrom) * convertAmount).toFixed(2);
 
-    setHistory((prevState: any) => [
+    //hook that updates the details of the user's currency convertion to the state hook that stores the user currency conversion history
+    //adds the latest conversion to the front of the conversion history array and spreads the previous state after it
+    //error fix used because this is currently out of my scope in TS...
+    //@ts-ignore
+    setHistory((prevState) => [
       {
         from: selectedFromCurrencyConversion,
         amount: convertAmount,

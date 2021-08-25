@@ -20,7 +20,7 @@ const App = () => {
       }
     } catch (error) {
       alert(
-        'Error Retrieving Data From API. Might be that I used all my requests for the month..... fuck...'
+        'Error Retrieving Data From API. Might be that I used all my requests for the month... fuck...'
       );
     }
   };

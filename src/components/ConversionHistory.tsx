@@ -3,7 +3,7 @@ const ConversionHistory = ({ historyItems }: any) => {
     if (historyItems.length < 1) {
       return (
         <div className="pt-2 flex items-center content-center">
-          <p className="text-gray-400 text-center">
+          <p className="text-gray-400 text-center p-6 h-full">
             All your previous conversions will be saved here
           </p>
         </div>

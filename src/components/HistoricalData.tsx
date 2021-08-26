@@ -58,7 +58,7 @@ const HistoricalData = () => {
    * Function used to render the UI for the past 7 days of exchange rates
    * @param historicalData the data  from exchange rates that have been saved for the past 7 days
    */
-  const renderHistoricalData = (historicalData: any) => {
+  const renderHistoricalData = (historicalData: IdataUnit[]) => {
     //this if only runs when all 7 days have been enterd into the
     if (historicalData.length > 6) {
       //this sorts thhe data by date in the historicalData array

@@ -77,7 +77,7 @@ const HistoricalData = () => {
         //variable that saves the earliest date to be used in the sort method
         let eldestDate: any = new Date(b.date);
         //sorts the dates in Decending  order
-        return youngestDate - eldestDate;
+        return eldestDate - youngestDate;
       });
 
       /**Function used to generate the UI for the list of the exchanges for the past 7 days

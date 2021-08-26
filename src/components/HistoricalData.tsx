@@ -45,7 +45,7 @@ const HistoricalData = () => {
   const searchHistoricalData = async (date: string) => {
     try {
       const response = await axios.get(
-        `http://api.exchangeratesapi.io/v1/${date}?access_key=777${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
+        `http://api.exchangeratesapi.io/v1/${date}?access_key=${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
       );
 
       //@ts-ignore

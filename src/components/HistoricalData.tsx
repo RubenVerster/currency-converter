@@ -45,7 +45,7 @@ const HistoricalData = () => {
   const searchHistoricalData = async (date: string) => {
     try {
       const response = await axios.get(
-        `http://api.exchangeratesapi.io/v1/${date}?access_key=${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
+        `http://api.exchangeratesapi.io/v1/${date}?access_key=777${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
       );
 
       //@ts-ignore
@@ -59,7 +59,7 @@ const HistoricalData = () => {
       ]);
     } catch (error) {
       setError(true);
-      setLoadingMessage('Error Loading Historical Exchange Rate');
+      setLoadingMessage('Error Loading Historical Exchange Rates');
     }
   };
 
@@ -110,7 +110,11 @@ const HistoricalData = () => {
       //if the exchange rates for the week have not been loaded yet, we return a UI that says the data is being loaded
       //could be replaced with a spinner instead, like a MoonLoader
       return (
-        <div className={`${error && `text-red-700 font-bold`} text-center`}>
+        <div
+          className={`${
+            error && `text-red-700 font-bold`
+          } w-6/12 py-3 mx-auto text-center`}
+        >
           {loadingMessage}
         </div>
       );

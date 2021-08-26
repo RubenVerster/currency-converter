@@ -30,3 +30,8 @@ html {
 .history {
   @include scrollCard();
 }
+
+.footer {
+  bottom: 0;
+  background-color: rgba($primary-gray, 1);
+}

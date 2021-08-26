@@ -59,7 +59,7 @@ const HistoricalData = () => {
       ]);
     } catch (error) {
       setError(true);
-      setLoadingMessage('Error Loading Historical Exchange Rate');
+      setLoadingMessage('Error Loading Historical Exchange Rates');
     }
   };
 
@@ -77,7 +77,7 @@ const HistoricalData = () => {
         //variable that saves the earliest date to be used in the sort method
         let eldestDate: any = new Date(b.date);
         //sorts the dates in Decending  order
-        return youngestDate - eldestDate;
+        return eldestDate - youngestDate;
       });
 
       /**Function used to generate the UI for the list of the exchanges for the past 7 days
@@ -110,7 +110,11 @@ const HistoricalData = () => {
       //if the exchange rates for the week have not been loaded yet, we return a UI that says the data is being loaded
       //could be replaced with a spinner instead, like a MoonLoader
       return (
-        <div className={`${error && `text-red-700 font-bold`} text-center`}>
+        <div
+          className={`${
+            error && `text-red-700 font-bold`
+          } w-6/12 py-3 mx-auto text-center`}
+        >
           {loadingMessage}
         </div>
       );

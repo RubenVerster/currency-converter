@@ -9,7 +9,6 @@ import Footer from './components/Footer';
 
 require('dotenv').config();
 const { REACT_APP_ACCESS_KEY } = process.env;
-console.log(process.env);
 //the base url for the API call
 const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${REACT_APP_ACCESS_KEY}`;
 

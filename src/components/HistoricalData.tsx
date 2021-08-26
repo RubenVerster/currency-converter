@@ -62,11 +62,11 @@ const HistoricalData = () => {
     //this if only runs when all 7 days have been enterd into the
     if (historicalData.length > 6) {
       //this sorts thhe data by date in the historicalData array
-      const sortedData = historicalData.sort(function (a: any, b: any) {
+      historicalData.sort(function (a: IdataUnit, b: IdataUnit) {
         //variable that saves the odlest date to be used in the sort method
         let youngestDate: any = new Date(a.date);
         //variable that saves the earliest date to be used in the sort method
-        let eldestDate: any = new Date(a.date);
+        let eldestDate: any = new Date(b.date);
         //sorts the dates in Decending  order
         return youngestDate - eldestDate;
       });

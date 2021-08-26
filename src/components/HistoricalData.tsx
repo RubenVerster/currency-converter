@@ -17,10 +17,12 @@ const HistoricalData = () => {
   /**
    * This is a React hook that is used to store the data for the data related to the exchange rates for the past 7 days
    */
-  const [historicalData, setHistoricalData] = useState([]);
+  const [historicalData, setHistoricalData] = useState<IdataUnit[]>([]);
+  //loading message in the component when data is still being fetched
   const [loadingMessage, setLoadingMessage] = useState<string>(
     'Loading historical exchange rates...'
   );
+  //state hook used to render red text if an error exists
   const [error, setError] = useState<boolean>(false);
 
   /**
@@ -43,6 +45,7 @@ const HistoricalData = () => {
    * @param date when we iterate through the dates array, this is the function that is use3d to do a single exchange rate for the day
    */
   const searchHistoricalData = async (date: string) => {
+    //tries to fetch the data for a single day's exchange rates
     try {
       const response = await axios.get(
         `http://api.exchangeratesapi.io/v1/${date}?access_key=${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
@@ -57,6 +60,7 @@ const HistoricalData = () => {
         },
         ...prevState,
       ]);
+      //if the data fetch fails, we set an error message
     } catch (error) {
       setError(true);
       setLoadingMessage('Error Loading Historical Exchange Rates');

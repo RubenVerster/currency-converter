@@ -34,7 +34,10 @@ const Converter = ({ options, setHistory, rates }: IConverterProps) => {
 
   //function that is used to set the number amount that the user wants to convert
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConvertAmount(e.currentTarget.value);
+    let RegEx = /^(\+)|[^\d\n]/;
+    const cleanedInput = e.currentTarget.value.replace(RegEx, '');
+
+    setConvertAmount(cleanedInput);
   };
   //function that is used to set the currency that a user wants to convert from
   const handleFromChange = (e: React.FormEvent<HTMLSelectElement>) => {

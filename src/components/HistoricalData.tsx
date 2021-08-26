@@ -13,11 +13,15 @@ interface IdataUnit {
  * This component manages the returning the UI for the exchange rates from Euro for the past 7 days
  * */
 const HistoricalData = () => {
-  const ACCESS_KEY = 'd3b5401b496524bf3dc6143b8cc358b9';
+  const { REACT_APP_ACCESS_KEY } = process.env;
   /**
    * This is a React hook that is used to store the data for the data related to the exchange rates for the past 7 days
    */
   const [historicalData, setHistoricalData] = useState([]);
+  const [loadingMessage, setLoadingMessage] = useState<string>(
+    'Loading historical exchange rates...'
+  );
+  const [error, setError] = useState<boolean>(false);
 
   /**
    * This hook runs when this component first mount
@@ -39,19 +43,24 @@ const HistoricalData = () => {
    * @param date when we iterate through the dates array, this is the function that is use3d to do a single exchange rate for the day
    */
   const searchHistoricalData = async (date: string) => {
-    const response = await axios.get(
-      `http://api.exchangeratesapi.io/v1/${date}?access_key=${ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
-    );
+    try {
+      const response = await axios.get(
+        `http://api.exchangeratesapi.io/v1/${date}?access_key=${REACT_APP_ACCESS_KEY}&symbols=USD,AUD,CAD,PLN,MXN`
+      );
 
-    //@ts-ignore
-    //Fixes error date object not being able to accepted into a prevState hook
-    await setHistoricalData((prevState) => [
-      {
-        rates: response.data.rates,
-        date: response.data.date,
-      },
-      ...prevState,
-    ]);
+      //@ts-ignore
+      //Fixes error date object not being able to accepted into a prevState hook
+      await setHistoricalData((prevState) => [
+        {
+          rates: response.data.rates,
+          date: response.data.date,
+        },
+        ...prevState,
+      ]);
+    } catch (error) {
+      setError(true);
+      setLoadingMessage('Error Loading Historical Exchange Rate');
+    }
   };
 
   /**
@@ -81,12 +90,12 @@ const HistoricalData = () => {
 
         //this .map is used to generate the UI for each day's exchange in a Card format
         return (
-          <div className="text-center border-2 m-2">
+          <div key={dataUnit.date} className="text-center border-2 m-2">
             <h1 className="text-lg font-bold">{dataUnit.date}</h1>
             {/* nested .map to generete the text for each day's currency exchanges */}
             {unitCurrencyKeys.map((currencyKey: string | object) => {
               return (
-                <p>
+                <p key={`${currencyKey}`}>
                   {/* here we return the currency and it's rate for the day to two decimal places*/}
                   {/* error fixed used for key in Interface */}
                   {/* @ts-ignore */}
@@ -101,7 +110,9 @@ const HistoricalData = () => {
       //if the exchange rates for the week have not been loaded yet, we return a UI that says the data is being loaded
       //could be replaced with a spinner instead, like a MoonLoader
       return (
-        <div className="text-center">Loading historical exchange rates...</div>
+        <div className={`${error && `text-red-700 font-bold`} text-center`}>
+          {loadingMessage}
+        </div>
       );
     }
   };

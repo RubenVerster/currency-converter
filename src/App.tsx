@@ -6,9 +6,12 @@ import { useState, useEffect } from 'react';
 import ConversionHistory from './components/ConversionHistory';
 import HistoricalData from './components/HistoricalData';
 
-const ACCESS_KEY = 'd3b5401b496524bf3dc6143b8cc358b9';
+require('dotenv').config();
+const { REACT_APP_ACCESS_KEY } = process.env;
+console.log(process.env);
 //the base url for the API call
-const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${ACCESS_KEY}`;
+const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${REACT_APP_ACCESS_KEY}`;
+console.log(BASE_URL);
 
 /**
  *Component that nests all other components and passes the relative API data to child components
@@ -27,7 +30,7 @@ const App = () => {
       //if the call fails, we display an error message
     } catch (error) {
       alert(
-        'Error Retrieving Data From API. Might be that I used all my requests for the month... fuck...'
+        'Error Retrieving Data From API, please check your Internet connection. Might also be that my API call limit has been reached for the month... fuck... Please refer to the README.md file realted to this repo for the fix :)'
       );
     }
   };

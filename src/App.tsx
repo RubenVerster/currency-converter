@@ -30,7 +30,7 @@ const App = () => {
       //if the call fails, we display an error message
     } catch (error) {
       alert(
-        'Error Retrieving Data From API, please check your Internet connection. Might also be that my API call limit has been reached for the month... fuck... Please refer to the README.md file realted to this repo for the fix :)'
+        'Error Retrieving Data From API, please check your Internet connection. Might also be that my API call limit has been reached for the month... fuck... Please refer to the README.md file related to this repo for the fix :)'
       );
     }
   };
